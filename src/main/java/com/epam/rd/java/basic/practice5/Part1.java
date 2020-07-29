@@ -3,13 +3,7 @@ package com.epam.rd.java.basic.practice5;
 public class Part1 {
 
     public static void main(String[] args) throws InterruptedException {
-        Thread firstThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                printThreadNameEvery300ms();
-            }
-        });
-
+        Thread firstThread = new Thread(new FirstThread());
         SecondThread secondThread = new SecondThread();
         firstThread.start();
         firstThread.join();
@@ -31,6 +25,13 @@ public class Part1 {
         }
     }
 
+}
+
+class FirstThread implements Runnable {
+    @Override
+    public void run() {
+        Part1.printThreadNameEvery300ms();
+    }
 }
 
 class SecondThread extends Thread {
