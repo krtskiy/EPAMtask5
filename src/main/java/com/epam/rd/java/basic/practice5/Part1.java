@@ -2,11 +2,16 @@ package com.epam.rd.java.basic.practice5;
 
 public class Part1 {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Thread firstThread = new Thread(new FirstThread());
         SecondThread secondThread = new SecondThread();
         firstThread.start();
-        firstThread.join();
+        try {
+            firstThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
         secondThread.start();
     }
 
