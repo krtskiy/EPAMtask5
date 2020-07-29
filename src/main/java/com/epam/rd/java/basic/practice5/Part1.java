@@ -13,6 +13,12 @@ public class Part1 {
             Thread.currentThread().interrupt();
         }
         secondThread.start();
+        try {
+            secondThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
     }
 
     static void printThreadNameEvery300ms() {
