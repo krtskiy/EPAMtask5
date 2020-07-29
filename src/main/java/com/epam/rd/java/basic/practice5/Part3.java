@@ -6,7 +6,7 @@ public class Part3 {
 
     private int counter2;
 
-    public static void main(final String[] args) throws InterruptedException {
+    public static void main(final String[] args) {
         System.out.println("~~~~~ Not synchronized ~~~~~");
         Part3 comp = new Part3();
         comp.compare();
@@ -27,7 +27,7 @@ public class Part3 {
         return counter == counter2;
     }
 
-    public void compare() throws InterruptedException {
+    public void compare() {
         Thread compareThread1 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -64,14 +64,24 @@ public class Part3 {
 
         compareThread1.start();
         compareThread2.start();
-        compareThread1.join();
-        compareThread2.join();
-        System.out.println(counter);
-        System.out.println(counter2);
+        try {
+            compareThread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+
+        }
+        try {
+            compareThread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+
+        }
 
     }
 
-    public void compareSync() throws InterruptedException {
+    public void compareSync() {
         Thread compareThread1 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -108,10 +118,20 @@ public class Part3 {
 
         compareThread1.start();
         compareThread2.start();
-        compareThread1.join();
-        compareThread2.join();
-        System.out.println(counter);
-        System.out.println(counter2);
+        try {
+            compareThread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+
+        }
+        try {
+            compareThread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+
+        }
 
 
     }
