@@ -106,8 +106,8 @@ public class Part4 {
 
         // 4 returns the maximum value in 4x100 matrix
         static int findMax() {
-            for (int i = 0; i < matrixOfNumbers.length; i++) {
-                maxNumberAtEveryLine[i] = findMaxAtEveryLine(matrixOfNumbers, i);
+            for (int i = 0; i < parseStringIntoArray().length; i++) {
+                maxNumberAtEveryLine[i] = findMaxAtEveryLine(parseStringIntoArray(), i);
             }
             return findMaxInArray(maxNumberAtEveryLine);
         }
