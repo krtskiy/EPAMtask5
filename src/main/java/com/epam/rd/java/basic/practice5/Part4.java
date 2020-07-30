@@ -49,6 +49,12 @@ public class Part4 {
             } catch (IOException ex) {
                 logger.severe(INTERRUPTED_MSG);
             }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                logger.severe(INTERRUPTED_MSG);
+                Thread.currentThread().interrupt();
+            }
         }
 
         // returns the maximum value in 4x100 matrix
