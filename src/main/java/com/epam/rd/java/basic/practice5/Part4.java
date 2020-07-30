@@ -12,49 +12,21 @@ public class Part4 {
     private static int[] maxNumberAtEveryLine = new int[4];
 
     public static void main(final String[] args) {
-        Part4FileWriter.write4by100Matrix();
-        for (int i = 0; i < matrixOfNumbers.length; i++) {
-            maxNumberAtEveryLine[i] = findMaxAtEveryLine(matrixOfNumbers, i);
-        }
-        System.out.println(findMaxInArray(maxNumberAtEveryLine));
+        Part4HelperClass.write4by100MatrixToFileAndArray();
+        long beforeMultiThread = System.currentTimeMillis();
+        //here should be parallelize search results
+        long afterMultiThread = System.currentTimeMillis();
+        System.out.println(afterMultiThread - beforeMultiThread);
+        long beforeSingleThread = System.currentTimeMillis();
+        System.out.println(Part4HelperClass.findMax());
+        long afterSingleThread = System.currentTimeMillis();
+        System.out.println(afterSingleThread - beforeSingleThread);
     }
 
-    private static int findMaxAtEveryLine(int[][] matrix, int index) {
-        int maxValue = matrix[index][0];
-        for (int i = 0; i < matrix[index].length; i++) {
-            if (matrix[index][i] > maxValue) {
-                maxValue = matrix[index][i];
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
-            }
-        }
-        return maxValue;
-    }
+    private static class Part4HelperClass {
 
-    private static int findMaxInArray(int[] arr) {
-        int maxValue = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > maxValue) {
-                maxValue = arr[i];
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
-            }
-        }
-        return maxValue;
-    }
-
-
-    private static class Part4FileWriter {
-
-        static void write4by100Matrix() {
+        // writes 4x100 matrix to the file and helper array
+        static void write4by100MatrixToFileAndArray() {
             StringBuilder numbers = new StringBuilder();
             SecureRandom secRand = new SecureRandom();
             File inputData = new File("part4.txt");
@@ -71,6 +43,48 @@ public class Part4 {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+        }
+
+        // returns the maximum value in 4x100 matrix
+        static int findMax() {
+            for (int i = 0; i < matrixOfNumbers.length; i++) {
+                maxNumberAtEveryLine[i] = findMaxAtEveryLine(matrixOfNumbers, i);
+            }
+            return findMaxInArray(maxNumberAtEveryLine);
+        }
+
+        // finds the maximum value of every line of matrix
+        private static int findMaxAtEveryLine(int[][] matrix, int index) {
+            int maxValue = matrix[index][0];
+            for (int i = 0; i < matrix[index].length; i++) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
+                if (matrix[index][i] > maxValue) {
+                    maxValue = matrix[index][i];
+                }
+            }
+            return maxValue;
+        }
+
+        // finds the biggest value of the maximum values of each line if matrix
+        private static int findMaxInArray(int[] arr) {
+            int maxValue = arr[0];
+            for (int i = 0; i < arr.length; i++) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
+                if (arr[i] > maxValue) {
+                    maxValue = arr[i];
+                }
+            }
+            return maxValue;
         }
 
     }
