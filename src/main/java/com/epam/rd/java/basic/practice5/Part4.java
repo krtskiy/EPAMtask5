@@ -16,7 +16,7 @@ public class Part4 {
 
 
     public static void main(final String[] args) {
-//        Part4HelperClass.write4by100MatrixToFileAndArray();
+        Part4HelperClass.write4by100MatrixToFileAndArray();
 
         long beforeMultiThread = System.currentTimeMillis();
         System.out.println(123);     //here should be parallelize search results
