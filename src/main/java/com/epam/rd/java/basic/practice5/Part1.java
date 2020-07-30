@@ -1,6 +1,9 @@
 package com.epam.rd.java.basic.practice5;
 
+import java.util.logging.Logger;
+
 public class Part1 {
+    static Logger logger = Logger.getLogger(Part1.class.getName());
 
     public static void main(String[] args) {
         Thread firstThread = new Thread(new FirstThread());
@@ -28,7 +31,7 @@ public class Part1 {
             if (after - before >= 2000) break;
             try {
                 Thread.sleep(300);
-                System.out.println(Thread.currentThread().getName());
+                logger.info(Thread.currentThread().getName());
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();

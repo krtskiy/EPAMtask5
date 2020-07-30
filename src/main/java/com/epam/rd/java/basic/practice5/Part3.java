@@ -7,8 +7,8 @@ public class Part3 {
     private int counter2;
 
     public static void main(final String[] args) {
-        System.out.println("~~~~~ Not synchronized ~~~~~");
         Part3 comp = new Part3();
+        System.out.println("~~~~~ Not synchronized ~~~~~");
         comp.compare();
         System.out.println("~~~~~ Synchronized ~~~~~");
         comp.compareSync();
@@ -23,16 +23,26 @@ public class Part3 {
         this.counter2++;
     }
 
-    private synchronized boolean compareTwoCounters() {
-        return counter == counter2;
+    private synchronized void comp() {
+        for (int i = 0; i < 3; i++) {
+            System.out.println(Integer.compare(counter, counter2));
+            incrementCounter();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
+            incrementCounter2();
+        }
     }
 
-    public void compare() {
-        Thread compareThread1 = new Thread(new Runnable() {
+    private void compare() {
+        Thread compareThread1 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
                 for (int i = 0; i < 3; i++) {
-                    System.out.println(counter == counter2);
+                    System.out.println(Integer.compare(counter, counter2));
                     counter++;
                     try {
                         Thread.sleep(100);
@@ -45,11 +55,11 @@ public class Part3 {
             }
         });
 
-        Thread compareThread2 = new Thread(new Runnable() {
+        Thread compareThread2 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
                 for (int i = 0; i < 3; i++) {
-                    System.out.println(counter == counter2);
+                    System.out.println(Integer.compare(counter, counter2));
                     counter++;
                     try {
                         Thread.sleep(100);
@@ -81,38 +91,18 @@ public class Part3 {
 
     }
 
-    public void compareSync() {
-        Thread compareThread1 = new Thread(new Runnable() {
+    private void compareSync() {
+        Thread compareThread1 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
-                for (int i = 0; i < 3; i++) {
-                    System.out.println(compareTwoCounters());
-                    incrementCounter();
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Thread.currentThread().interrupt();
-                    }
-                    incrementCounter2();
-                }
+                comp();
             }
         });
 
-        Thread compareThread2 = new Thread(new Runnable() {
+        Thread compareThread2 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
-                for (int i = 0; i < 3; i++) {
-                    System.out.println(compareTwoCounters());
-                    incrementCounter();
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Thread.currentThread().interrupt();
-                    }
-                    incrementCounter2();
-                }
+                comp();
             }
         });
 
@@ -135,5 +125,6 @@ public class Part3 {
 
 
     }
+
 
 }

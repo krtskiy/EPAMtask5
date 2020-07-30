@@ -6,7 +6,7 @@ import org.junit.Test;
 public class Part1Test {
 
     @Test
-    public void should() {
+    public void shouldDoSomething() {
         long before = System.currentTimeMillis();
         Part1.printThreadNameEvery300ms();
         long after = System.currentTimeMillis();
