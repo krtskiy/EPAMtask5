@@ -29,7 +29,7 @@ public class Part4 {
 
     }
 
-    private static class Part4HelperClass implements Runnable{
+    private static class Part4HelperClass {
 
         static void write4by100MatrixToFile() {
             StringBuilder numbers = new StringBuilder();
@@ -60,7 +60,7 @@ public class Part4 {
             String[] inputArrStr = input.split(System.lineSeparator());
             String[][] inputArrStr2 = new String[inputArrStr.length][100];
             for (int i = 0; i < inputArrStr2.length; i++) {
-                inputArrStr2[i] = inputArrStr[i].split(" ");
+                inputArrStr2[i] = inputArrStr[i].split("\\s");
             }
             for (int i = 0; i < inputArrInt.length; i++) {
                 for (int j = 0; j < inputArrInt[i].length; j++) {
@@ -102,9 +102,5 @@ public class Part4 {
             return maxValue;
         }
 
-        @Override
-        public void run() {
-            findMax();
-        }
     }
 }
