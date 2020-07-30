@@ -1,10 +1,14 @@
 package com.epam.rd.java.basic.practice5;
 
+import java.util.logging.Logger;
+
 public class Part3 {
 
     private int counter;
-
     private int counter2;
+    private static Logger logger = Logger.getLogger(Part3.class.getName());
+    private static final String INTERRUPTED_MSG = "Thread is interrupted";
+
 
     public static void main(final String[] args) {
         Part3 comp = new Part3();
@@ -23,19 +27,6 @@ public class Part3 {
         this.counter2++;
     }
 
-    private synchronized void comp() {
-        for (int i = 0; i < 3; i++) {
-            System.out.println(Integer.compare(counter, counter2));
-            incrementCounter();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                Thread.currentThread().interrupt();
-            }
-            incrementCounter2();
-        }
-    }
 
     private void compare() {
         Thread compareThread1 = new Thread(new Runnable() { //NOSONAR
@@ -47,7 +38,7 @@ public class Part3 {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        logger.severe(INTERRUPTED_MSG);
                         Thread.currentThread().interrupt();
                     }
                     counter2++;
@@ -64,7 +55,7 @@ public class Part3 {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        logger.severe(INTERRUPTED_MSG);
                         Thread.currentThread().interrupt();
                     }
                     counter2++;
@@ -77,18 +68,32 @@ public class Part3 {
         try {
             compareThread1.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
 
         }
         try {
             compareThread2.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
 
         }
 
+    }
+
+    private synchronized void comp() {
+        for (int i = 0; i < 3; i++) {
+            System.out.println(Integer.compare(counter, counter2));
+            incrementCounter();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                logger.severe(INTERRUPTED_MSG);
+                Thread.currentThread().interrupt();
+            }
+            incrementCounter2();
+        }
     }
 
     private void compareSync() {
@@ -111,14 +116,14 @@ public class Part3 {
         try {
             compareThread1.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
 
         }
         try {
             compareThread2.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
 
         }

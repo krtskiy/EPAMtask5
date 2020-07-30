@@ -5,19 +5,24 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.logging.Logger;
 
 public class Part4 {
 
     private static int[][] matrixOfNumbers = new int[4][100];
     private static int[] maxNumberAtEveryLine = new int[4];
+    private static Logger logger = Logger.getLogger(Part4.class.getName());
+    private static final String INTERRUPTED_MSG = "Thread is interrupted";
+
 
     public static void main(final String[] args) {
         Part4HelperClass.write4by100MatrixToFileAndArray();
+
         long beforeMultiThread = System.currentTimeMillis();
-        //here should be parallelize search results
-        System.out.println(123);
+        System.out.println(123);     //here should be parallelize search results
         long afterMultiThread = System.currentTimeMillis();
         System.out.println(afterMultiThread - beforeMultiThread);
+
         long beforeSingleThread = System.currentTimeMillis();
         System.out.println(Part4HelperClass.findMax());
         long afterSingleThread = System.currentTimeMillis();
@@ -42,7 +47,7 @@ public class Part4 {
                 }
                 writer.write(numbers.toString());
             } catch (IOException ex) {
-                ex.printStackTrace();
+                logger.severe(INTERRUPTED_MSG);
             }
         }
 
@@ -61,7 +66,7 @@ public class Part4 {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    logger.severe(INTERRUPTED_MSG);
                     Thread.currentThread().interrupt();
                 }
                 if (matrix[index][i] > maxValue) {
@@ -78,7 +83,7 @@ public class Part4 {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    logger.severe(INTERRUPTED_MSG);
                     Thread.currentThread().interrupt();
                 }
                 if (arr[i] > maxValue) {
