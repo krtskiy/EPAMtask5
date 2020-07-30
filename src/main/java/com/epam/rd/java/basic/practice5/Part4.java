@@ -15,7 +15,7 @@ public class Part4 {
 
 
     public static void main(final String[] args) {
-        Part4HelperClass.write4by100MatrixToFileAndArray();
+        Part4HelperClass.write4by100MatrixToFile();
 
         long beforeMultiThread = System.currentTimeMillis();
         System.out.println(123);     //here should be parallelize search results
@@ -30,8 +30,7 @@ public class Part4 {
 
     private static class Part4HelperClass {
 
-        // writes 4x100 matrix to the file and helper array
-        static void write4by100MatrixToFileAndArray() {
+        static void write4by100MatrixToFile() {
             StringBuilder numbers = new StringBuilder();
             SecureRandom secRand = new SecureRandom();
             File inputData = new File("part4.txt");
@@ -75,8 +74,6 @@ public class Part4 {
             }
             return maxValue;
         }
-
-
 
     }
 }
