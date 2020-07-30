@@ -9,8 +9,7 @@ import java.util.logging.Logger;
 
 public class Part4 {
 
-    private static int[][] matrixOfNumbers = new int[4][100];
-    private static int[] maxNumberAtEveryLine = new int[4];
+    private static int[] inputArrInt = new int[400];
     private static Logger logger = Logger.getLogger(Part4.class.getName());
     private static final String INTERRUPTED_MSG = "Thread is interrupted";
 
@@ -24,7 +23,7 @@ public class Part4 {
         System.out.println(afterMultiThread - beforeMultiThread);
 
         long beforeSingleThread = System.currentTimeMillis();
-        System.out.println(Part4HelperClass.findMax());
+        System.out.println(Part4HelperClass.findMaxValue());
         long afterSingleThread = System.currentTimeMillis();
         System.out.println(afterSingleThread - beforeSingleThread);
     }
@@ -56,61 +55,28 @@ public class Part4 {
             }
         }
 
-        // 1 parsing integers from file to 2d array
-        private static int[][] parseStringIntoArray() {
+        private static int findMaxValue() {
             String input = Demo.readFile("part4.txt");
             String[] inputArrStr = input.split(" \\s*");
-            int index = 0;
-            for (int j = 0; j < 4; j++) {
-                for (int i = 0; i < 100; i++) {
-                    matrixOfNumbers[j][i] = Integer.parseInt(inputArrStr[index++]);
-                }
+            for (int i = 0; i < inputArrStr.length; i++) {
+                inputArrInt[i] = Integer.parseInt(inputArrStr[i]);
             }
-            return matrixOfNumbers;
-        }
-
-        // 2 finds the maximum value of every line of 2d array
-        private static int findMaxAtEveryLine(int[][] matrix, int index) {
-            parseStringIntoArray();
-            int maxValue = matrix[index][0];
-            for (int i = 0; i < matrix[index].length; i++) {
+            int maxValue = inputArrInt[0];
+            for (int i = 1; i < inputArrInt.length; i++) {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
                     logger.severe(INTERRUPTED_MSG);
                     Thread.currentThread().interrupt();
                 }
-                if (matrix[index][i] > maxValue) {
-                    maxValue = matrix[index][i];
+                if (inputArrInt[i] > maxValue) {
+                    maxValue = inputArrInt[i];
                 }
             }
             return maxValue;
         }
 
-        // 3 finds the biggest value of the maximum values of each line in 2d array
-        private static int findMaxInArray(int[] arr) {
-            int maxValue = arr[0];
-            for (int i = 0; i < arr.length; i++) {
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    logger.severe(INTERRUPTED_MSG);
-                    Thread.currentThread().interrupt();
-                }
-                if (arr[i] > maxValue) {
-                    maxValue = arr[i];
-                }
-            }
-            return maxValue;
-        }
 
-        // 4 returns the maximum value in 4x100 matrix
-        static int findMax() {
-            for (int i = 0; i < parseStringIntoArray().length; i++) {
-                maxNumberAtEveryLine[i] = findMaxAtEveryLine(parseStringIntoArray(), i);
-            }
-            return findMaxInArray(maxNumberAtEveryLine);
-        }
 
     }
 }
