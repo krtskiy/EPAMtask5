@@ -27,7 +27,6 @@ public class Part4 {
         System.out.println(Part4HelperClass.findMax());
         long afterSingleThread = System.currentTimeMillis();
         System.out.println(afterSingleThread - beforeSingleThread);
-//        Part4HelperClass.parseStringIntoArray();
     }
 
     private static class Part4HelperClass {
