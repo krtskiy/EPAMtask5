@@ -16,7 +16,7 @@ public class Part4 {
 
 
     public static void main(final String[] args) {
-        Part4HelperClass.write4by100MatrixToFileAndArray();
+//        Part4HelperClass.write4by100MatrixToFileAndArray();
 
         long beforeMultiThread = System.currentTimeMillis();
         System.out.println(123);     //here should be parallelize search results
@@ -27,6 +27,7 @@ public class Part4 {
         System.out.println(Part4HelperClass.findMax());
         long afterSingleThread = System.currentTimeMillis();
         System.out.println(afterSingleThread - beforeSingleThread);
+//        Part4HelperClass.parseStringIntoArray();
     }
 
     private static class Part4HelperClass {
@@ -41,7 +42,6 @@ public class Part4 {
                     for (int i = 0; i < 100; i++) {
                         int rand = secRand.nextInt(899) + 100;
                         numbers.append(rand).append(" ");
-                        matrixOfNumbers[j][i] = rand;
                     }
                     numbers.append(System.lineSeparator());
                 }
@@ -57,16 +57,22 @@ public class Part4 {
             }
         }
 
-        // returns the maximum value in 4x100 matrix
-        static int findMax() {
-            for (int i = 0; i < matrixOfNumbers.length; i++) {
-                maxNumberAtEveryLine[i] = findMaxAtEveryLine(matrixOfNumbers, i);
+        // 1 parsing integers from file to 2d array
+        private static int[][] parseStringIntoArray() {
+            String input = Demo.readFile("part4.txt");
+            String[] inputArrStr = input.split(" \\s*");
+            int index = 0;
+            for (int j = 0; j < 4; j++) {
+                for (int i = 0; i < 100; i++) {
+                    matrixOfNumbers[j][i] = Integer.parseInt(inputArrStr[index++]);
+                }
             }
-            return findMaxInArray(maxNumberAtEveryLine);
+            return matrixOfNumbers;
         }
 
-        // finds the maximum value of every line of matrix
+        // 2 finds the maximum value of every line of 2d array
         private static int findMaxAtEveryLine(int[][] matrix, int index) {
+            parseStringIntoArray();
             int maxValue = matrix[index][0];
             for (int i = 0; i < matrix[index].length; i++) {
                 try {
@@ -82,7 +88,7 @@ public class Part4 {
             return maxValue;
         }
 
-        // finds the biggest value of the maximum values of each line if matrix
+        // 3 finds the biggest value of the maximum values of each line in 2d array
         private static int findMaxInArray(int[] arr) {
             int maxValue = arr[0];
             for (int i = 0; i < arr.length; i++) {
@@ -97,6 +103,14 @@ public class Part4 {
                 }
             }
             return maxValue;
+        }
+
+        // 4 returns the maximum value in 4x100 matrix
+        static int findMax() {
+            for (int i = 0; i < matrixOfNumbers.length; i++) {
+                maxNumberAtEveryLine[i] = findMaxAtEveryLine(matrixOfNumbers, i);
+            }
+            return findMaxInArray(maxNumberAtEveryLine);
         }
 
     }
