@@ -7,6 +7,7 @@ public class Part1 {
     private static final String INTERRUPTED_MSG = "Thread is interrupted";
 
     public static void main(String[] args) {
+        long before = System.currentTimeMillis();
         Thread firstThread = new Thread(new FirstThread());
         SecondThread secondThread = new SecondThread();
         firstThread.start();
@@ -23,16 +24,20 @@ public class Part1 {
             logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
         }
+        long after = System.currentTimeMillis();
+        System.out.println(after - before);
+//        System.out.println(Thread.activeCount());
     }
 
     static void printThreadNameEvery300ms() {
         long before = System.currentTimeMillis();
+        System.out.println(Thread.currentThread().getName());
         while (true) {
             long after = System.currentTimeMillis();
-            if (after - before >= 2100) break;
-            System.out.println(Thread.currentThread().getName());
+            if (after - before >= 1600) break;
             try {
                 Thread.sleep(500);
+                System.out.println(Thread.currentThread().getName());
             } catch (InterruptedException e) {
                 logger.severe(INTERRUPTED_MSG);
                 Thread.currentThread().interrupt();
