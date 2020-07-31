@@ -3,7 +3,6 @@ package com.epam.rd.java.basic.practice5;
 import java.util.logging.Logger;
 
 public class Part1 {
-    
     private static Logger logger = Logger.getLogger(Part1.class.getName());
     private static final String INTERRUPTED_MSG = "Thread is interrupted";
 
