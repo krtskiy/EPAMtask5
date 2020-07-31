@@ -26,7 +26,6 @@ public class Part1 {
         }
         long after = System.currentTimeMillis();
         System.out.println(after - before);
-//        System.out.println(Thread.activeCount());
     }
 
     static void printThreadNameEvery300ms() {
