@@ -17,19 +17,9 @@ public class Part4 {
 
 
     public static void main(final String[] args) {
-        Thread writeThread = new Thread(new Runnable() { //NOSONAR
-            @Override
-            public void run() {
-                Part4HelperClass.write4by100MatrixToFile();
-            }
-        });
-        writeThread.start();
-        try {
-            writeThread.join();
-        } catch (InterruptedException e) {
-            logger.severe(INTERRUPTED_MSG);
-            Thread.currentThread().interrupt();
-        }
+//        Part4HelperClass.write4by100MatrixToFile();
+        Part4HelperClass.splitMatrixIntoArray();
+
 
         long beforeWith4Threads = System.currentTimeMillis();
         System.out.println(Part4HelperClass.doWorkWith4Threads());
@@ -67,7 +57,6 @@ public class Part4 {
                 logger.severe(INTERRUPTED_MSG);
                 Thread.currentThread().interrupt();
             }
-            splitMatrixIntoArray();
         }
 
         private static void splitMatrixIntoArray() {
