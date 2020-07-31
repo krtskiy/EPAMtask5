@@ -17,14 +17,24 @@ public class Part4 {
 
 
     public static void main(final String[] args) {
-        Part4HelperClass.write4by100MatrixToFile();
+        Thread writeThread = new Thread(new Runnable() { //NOSONAR
+            @Override
+            public void run() {
+                Part4HelperClass.write4by100MatrixToFile();
+            }
+        });
+        writeThread.start();
+        try {
+            writeThread.join();
+        } catch (InterruptedException e) {
+            logger.severe(INTERRUPTED_MSG);
+            Thread.currentThread().interrupt();
+        }
 
         long beforeWith4Threads = System.currentTimeMillis();
         System.out.println(Part4HelperClass.doWorkWith4Threads());
         long afterWith4Threads = System.currentTimeMillis();
         System.out.println(afterWith4Threads - beforeWith4Threads);
-
-        Part4HelperClass.write4by100MatrixToFile();
 
         long beforeSingleThread = System.currentTimeMillis();
         System.out.println(Part4HelperClass.findMax());
