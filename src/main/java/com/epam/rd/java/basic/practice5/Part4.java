@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 public class Part4 {
 
+    private static int[] max = new int[4];
     private static int[][] inputArrInt = new int[4][100];
     private static Logger logger = Logger.getLogger(Part4.class.getName());
     private static final String INTERRUPTED_MSG = "Thread is interrupted";
@@ -17,10 +18,10 @@ public class Part4 {
     public static void main(final String[] args) {
         Part4HelperClass.write4by100MatrixToFile();
 
-        long beforeMultiThread = System.currentTimeMillis();
-        System.out.println(4);     //here should be parallelize search results
-        long afterMultiThread = System.currentTimeMillis();
-        System.out.println(afterMultiThread - beforeMultiThread);
+        long beforeWith4Threads = System.currentTimeMillis();
+        System.out.println(Part4HelperClass.doWorkWith4Threads());
+        long afterWith4Threads = System.currentTimeMillis();
+        System.out.println(afterWith4Threads - beforeWith4Threads);
 
         long beforeSingleThread = System.currentTimeMillis();
         System.out.println(Part4HelperClass.findMax());
@@ -53,6 +54,7 @@ public class Part4 {
                 logger.severe(INTERRUPTED_MSG);
                 Thread.currentThread().interrupt();
             }
+            splitMatrixIntoArray();
         }
 
         private static void splitMatrixIntoArray() {
@@ -70,7 +72,6 @@ public class Part4 {
         }
 
         private static int findMaxInArray(int[] arr) {
-            splitMatrixIntoArray();
             int maxValue = arr[0];
             for (int i = 0; i < arr.length; i++) {
                 try {
@@ -97,6 +98,59 @@ public class Part4 {
                 }
                 if (findMaxInArray(inputArrInt[i]) > maxValue) {
                     maxValue = findMaxInArray(inputArrInt[i]);
+                }
+            }
+            return maxValue;
+        }
+
+        private static int doWorkWith4Threads() {
+            Thread t = new Thread(new Runnable() { //NOSONAR
+                @Override
+                public void run() {
+                    max[0] = Part4HelperClass.findMaxInArray(inputArrInt[0]);
+                }
+            });
+
+            Thread t1 = new Thread(new Runnable() { //NOSONAR
+                @Override
+                public void run() {
+                    max[1] = Part4HelperClass.findMaxInArray(inputArrInt[1]);
+                }
+            });
+
+            Thread t2 = new Thread(new Runnable() { //NOSONAR
+                @Override
+                public void run() {
+                    max[2] = Part4HelperClass.findMaxInArray(inputArrInt[2]);
+                }
+            });
+
+            Thread t3 = new Thread(new Runnable() { //NOSONAR
+                @Override
+                public void run() {
+                    max[3] = Part4HelperClass.findMaxInArray(inputArrInt[3]);
+                }
+            });
+
+            t.start();
+            t1.start();
+            t2.start();
+            t3.start();
+
+            try {
+                t.join();
+                t1.join();
+                t2.join();
+                t3.join();
+            } catch (InterruptedException e) {
+                logger.severe(INTERRUPTED_MSG);
+                Thread.currentThread().interrupt();
+            }
+
+            int maxValue = max[0];
+            for (int i = 1; i < max.length; i++) {
+                if (max[i] > maxValue) {
+                    maxValue = max[i];
                 }
             }
             return maxValue;
