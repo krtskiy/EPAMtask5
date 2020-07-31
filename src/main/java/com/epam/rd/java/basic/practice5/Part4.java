@@ -17,7 +17,6 @@ public class Part4 {
 
 
     public static void main(final String[] args) {
-//        Part4HelperClass.write4by100MatrixToFile();
         Part4HelperClass.splitMatrixIntoArray();
 
 

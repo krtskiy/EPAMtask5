@@ -14,8 +14,9 @@ public class Part3 {
         Part3 comp = new Part3();
         System.out.println("~~~~~ Not synchronized ~~~~~");
         comp.compare();
+        Part3 comp2 = new Part3();
         System.out.println("~~~~~ Synchronized ~~~~~");
-        comp.compareSync();
+        comp2.compareSync();
 
     }
 
