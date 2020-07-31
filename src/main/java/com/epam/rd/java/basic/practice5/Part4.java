@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 public class Part4 {
 
     private static int[] max = new int[4];
+    private static int[] maxSingleThread = new int[4];
     private static int[][] inputArrInt = new int[4][100];
     private static Logger logger = Logger.getLogger(Part4.class.getName());
     private static final String INTERRUPTED_MSG = "Thread is interrupted";
@@ -88,16 +89,19 @@ public class Part4 {
         }
 
         private static int findMax() {
-            int maxValue = findMaxInArray(inputArrInt[0]);
             for (int i = 0; i < inputArrInt.length; i++) {
+                maxSingleThread[i] = findMaxInArray(inputArrInt[i]);
+            }
+            int maxValue = maxSingleThread[0];
+            for (int i = 1; i < maxSingleThread.length; i++) {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
                     logger.severe(INTERRUPTED_MSG);
                     Thread.currentThread().interrupt();
                 }
-                if (findMaxInArray(inputArrInt[i]) > maxValue) {
-                    maxValue = findMaxInArray(inputArrInt[i]);
+                if (maxSingleThread[i] > maxValue) {
+                    maxValue = maxSingleThread[i];
                 }
             }
             return maxValue;
@@ -107,28 +111,28 @@ public class Part4 {
             Thread t = new Thread(new Runnable() { //NOSONAR
                 @Override
                 public void run() {
-                    max[0] = Part4HelperClass.findMaxInArray(inputArrInt[0]);
+                    max[0] = findMaxInArray(inputArrInt[0]);
                 }
             });
 
             Thread t1 = new Thread(new Runnable() { //NOSONAR
                 @Override
                 public void run() {
-                    max[1] = Part4HelperClass.findMaxInArray(inputArrInt[1]);
+                    max[1] = findMaxInArray(inputArrInt[1]);
                 }
             });
 
             Thread t2 = new Thread(new Runnable() { //NOSONAR
                 @Override
                 public void run() {
-                    max[2] = Part4HelperClass.findMaxInArray(inputArrInt[2]);
+                    max[2] = findMaxInArray(inputArrInt[2]);
                 }
             });
 
             Thread t3 = new Thread(new Runnable() { //NOSONAR
                 @Override
                 public void run() {
-                    max[3] = Part4HelperClass.findMaxInArray(inputArrInt[3]);
+                    max[3] = findMaxInArray(inputArrInt[3]);
                 }
             });
 
@@ -149,6 +153,12 @@ public class Part4 {
 
             int maxValue = max[0];
             for (int i = 1; i < max.length; i++) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    logger.severe(INTERRUPTED_MSG);
+                    Thread.currentThread().interrupt();
+                }
                 if (max[i] > maxValue) {
                     maxValue = max[i];
                 }
