@@ -39,7 +39,7 @@ public class Part3 {
         Thread compareThread1 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 5; i++) {
                     System.out.println(Integer.compare(counter, counter2));
                     counter++;
                     try {
@@ -56,7 +56,7 @@ public class Part3 {
         Thread compareThread2 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 5; i++) {
                     System.out.println(Integer.compare(counter, counter2));
                     counter++;
                     try {
@@ -90,7 +90,7 @@ public class Part3 {
     }
 
     private synchronized void comp() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             System.out.println(Integer.compare(counter, counter2));
             incrementCounter();
             try {

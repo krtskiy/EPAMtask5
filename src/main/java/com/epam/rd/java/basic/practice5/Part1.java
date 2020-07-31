@@ -29,10 +29,10 @@ public class Part1 {
         long before = System.currentTimeMillis();
         while (true) {
             long after = System.currentTimeMillis();
-            if (after - before >= 2000) break;
+            if (after - before >= 2100) break;
+            logger.info(Thread.currentThread().getName());
             try {
-                Thread.sleep(300);
-                logger.info(Thread.currentThread().getName());
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 logger.severe(INTERRUPTED_MSG);
                 Thread.currentThread().interrupt();
