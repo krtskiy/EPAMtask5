@@ -24,6 +24,8 @@ public class Part4 {
         long afterWith4Threads = System.currentTimeMillis();
         System.out.println(afterWith4Threads - beforeWith4Threads);
 
+        Part4HelperClass.write4by100MatrixToFile();
+
         long beforeSingleThread = System.currentTimeMillis();
         System.out.println(Part4HelperClass.findMax());
         long afterSingleThread = System.currentTimeMillis();
