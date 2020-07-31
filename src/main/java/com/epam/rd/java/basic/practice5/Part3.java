@@ -4,17 +4,23 @@ import java.util.logging.Logger;
 
 public class Part3 {
 
+    private int numberOfThreads;
+    private int numberOfIterations;
     private int counter;
     private int counter2;
     private static Logger logger = Logger.getLogger(Part3.class.getName());
     private static final String INTERRUPTED_MSG = "Thread is interrupted";
 
+    public Part3(int numberOfThreads, int numberOfIterations) {
+        this.numberOfThreads = numberOfThreads;
+        this.numberOfIterations = numberOfIterations;
+    }
 
     public static void main(final String[] args) {
-        Part3 comp = new Part3();
+        Part3 comp = new Part3(1,1);
         System.out.println("~~~~~ Not synchronized ~~~~~");
         comp.compare();
-        Part3 comp2 = new Part3();
+        Part3 comp2 = new Part3(4,1);
         System.out.println("~~~~~ Synchronized ~~~~~");
         comp2.compareSync();
 
@@ -29,7 +35,7 @@ public class Part3 {
     }
 
 
-    private void compare() {
+    public void compare() {
         Thread compareThread1 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
@@ -97,7 +103,7 @@ public class Part3 {
         }
     }
 
-    private void compareSync() {
+    public void compareSync() {
         Thread compareThread1 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
