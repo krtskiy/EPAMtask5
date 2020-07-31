@@ -30,7 +30,7 @@ public class Part1 {
         while (true) {
             long after = System.currentTimeMillis();
             if (after - before >= 2100) break;
-            logger.info(Thread.currentThread().getName());
+            System.out.println(Thread.currentThread().getName());
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
