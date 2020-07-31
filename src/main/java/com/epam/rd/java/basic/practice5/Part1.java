@@ -7,12 +7,17 @@ public class Part1 {
     private static final String INTERRUPTED_MSG = "Thread is interrupted";
 
     public static void main(String[] args) {
-        long before = System.currentTimeMillis();
         Thread firstThread = new Thread(new FirstThread());
         SecondThread secondThread = new SecondThread();
         firstThread.start();
         try {
             firstThread.join();
+        } catch (InterruptedException e) {
+            logger.severe(INTERRUPTED_MSG);
+            Thread.currentThread().interrupt();
+        }
+        try {
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
@@ -24,8 +29,6 @@ public class Part1 {
             logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
         }
-        long after = System.currentTimeMillis();
-        System.out.println(after - before);
     }
 
     static void printThreadNameEvery300ms() {
