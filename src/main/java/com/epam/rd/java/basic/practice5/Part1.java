@@ -16,12 +16,6 @@ public class Part1 {
             logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
         }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            logger.severe(INTERRUPTED_MSG);
-            Thread.currentThread().interrupt();
-        }
         secondThread.start();
         try {
             secondThread.join();
@@ -33,10 +27,9 @@ public class Part1 {
 
     static void printThreadNameEvery300ms() {
         long before = System.currentTimeMillis();
-        System.out.println(Thread.currentThread().getName());
         while (true) {
             long after = System.currentTimeMillis();
-            if (after - before >= 1600) break;
+            if (after - before >= 2000) break;
             try {
                 Thread.sleep(500);
                 System.out.println(Thread.currentThread().getName());
