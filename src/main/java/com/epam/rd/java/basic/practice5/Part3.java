@@ -40,7 +40,7 @@ public class Part3 {
             @Override
             public void run() {
                 for (int i = 0; i < 5; i++) {
-                    System.out.println(Integer.compare(counter, counter2));
+                    System.out.println(counter == counter2);
                     counter++;
                     try {
                         Thread.sleep(100);
@@ -57,7 +57,7 @@ public class Part3 {
             @Override
             public void run() {
                 for (int i = 0; i < 5; i++) {
-                    System.out.println(Integer.compare(counter, counter2));
+                    System.out.println(counter == counter2);
                     counter++;
                     try {
                         Thread.sleep(100);
@@ -91,7 +91,7 @@ public class Part3 {
 
     private synchronized void comp() {
         for (int i = 0; i < 5; i++) {
-            System.out.println(Integer.compare(counter, counter2));
+            System.out.println(counter == counter2);
             incrementCounter();
             try {
                 Thread.sleep(100);
