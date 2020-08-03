@@ -34,10 +34,15 @@ public class Spam {
     }
 
     public void stop() {
+        Worker.running = false;
         for (Thread t : threads) {
             t.interrupt();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        Worker.running = false;
     }
 
     private static class Worker extends Thread {
