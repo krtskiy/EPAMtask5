@@ -20,12 +20,7 @@ public class Spam {
 
     public static void main(String[] args) {
         Spam spam = new Spam(new String[]{"aaaa", "bbbb"}, new int[]{250, 500});
-        for (int i = 0; i < spam.threads.length; i++) {
-            spam.threads[i] = new Worker(spam.messages[i], spam.delays[i]);
-        }
-        for (Thread t : spam.threads) {
-            t.start();
-        }
+        spam.start();
         Scanner sc = new Scanner(System.in);
         if (sc.hasNextLine()) {
             spam.stop();
@@ -33,7 +28,16 @@ public class Spam {
     }
 
     public void start() {
+        long before = System.currentTimeMillis();
 
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Worker(messages[i], delays[i]);
+        }
+        for (Thread t : threads) {
+            t.start();
+            long after = System.currentTimeMillis();
+            System.out.println(Thread.activeCount() + " threads created after " + (after - before) + " ms");
+        }
     }
 
     public void stop() {
