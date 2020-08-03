@@ -16,6 +16,12 @@ public class Part1 {
             logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
         }
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            logger.severe(INTERRUPTED_MSG);
+            Thread.currentThread().interrupt();
+        }
         secondThread.start();
         try {
             secondThread.join();

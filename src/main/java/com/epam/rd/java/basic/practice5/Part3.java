@@ -37,11 +37,11 @@ public class Part3 {
         Thread compareThread1 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 5; i++) {
                     System.out.println(counter == counter2);
                     counter++;
                     try {
-                        Thread.sleep(101);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         logger.severe(INTERRUPTED_MSG);
                         Thread.currentThread().interrupt();
@@ -54,11 +54,11 @@ public class Part3 {
         Thread compareThread2 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 5; i++) {
                     System.out.println(counter == counter2);
                     counter++;
                     try {
-                        Thread.sleep(101);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         logger.severe(INTERRUPTED_MSG);
                         Thread.currentThread().interrupt();
@@ -88,11 +88,11 @@ public class Part3 {
     }
 
     private synchronized void comp() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             System.out.println(counter == counter2);
             incrementCounter();
             try {
-                Thread.sleep(101);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 logger.severe(INTERRUPTED_MSG);
                 Thread.currentThread().interrupt();
