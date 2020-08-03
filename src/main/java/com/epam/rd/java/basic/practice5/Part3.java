@@ -18,10 +18,8 @@ public class Part3 {
 
     public static void main(final String[] args) {
         Part3 comp = new Part3(1,1);
-        System.out.println("~~~~~ Not synchronized ~~~~~");
         comp.compare();
         Part3 comp2 = new Part3(4,1);
-        System.out.println("~~~~~ Synchronized ~~~~~");
         comp2.compareSync();
 
     }
