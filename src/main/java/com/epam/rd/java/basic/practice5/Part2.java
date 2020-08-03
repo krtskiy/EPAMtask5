@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 public class Part2 {
 
     private static final InputStream SYS_DEFAULT_IN = System.in;
-    private static Logger logger = Logger.getLogger(Part3.class.getName());
+    private static Logger logger = Logger.getLogger(Part2.class.getName());
     private static final String INTERRUPTED_MSG = "Thread is interrupted";
 
     public static void main(final String[] args) {
-        Thread t = new Thread(new Runnable() {
+        Thread t = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
                 Spam.main(null);

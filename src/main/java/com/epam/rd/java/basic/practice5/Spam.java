@@ -1,9 +1,12 @@
 package com.epam.rd.java.basic.practice5;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Spam {
 
+    private static Logger logger = Logger.getLogger(Spam.class.getName());
+    private static final String INTERRUPTED_MSG = "Thread is interrupted";
     private Thread[] threads;
     private String[] messages;
     private int[] delays;
@@ -16,7 +19,7 @@ public class Spam {
     }
 
     public static void main(String[] args) {
-        Spam spam = new Spam(new String[]{"@@@", "bbbbbbb"}, new int[]{332, 999});
+        Spam spam = new Spam(new String[]{"aaaa", "bbbb"}, new int[]{250, 500});
         spam.start();
         Scanner sc = new Scanner(System.in);
         if (sc.hasNextLine()) {
@@ -40,7 +43,8 @@ public class Spam {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.severe(INTERRUPTED_MSG);
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -62,9 +66,11 @@ public class Spam {
         @Override
         public void run() {
             while (running) {
+                long before = System.currentTimeMillis();
                 try {
                     Thread.sleep(delay);
-                    System.out.println(message);
+                    long after = System.currentTimeMillis();
+                    System.out.println(message + (after - before));
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     break;
