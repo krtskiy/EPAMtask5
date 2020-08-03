@@ -66,11 +66,9 @@ public class Spam {
         @Override
         public void run() {
             while (running) {
-                long before = System.currentTimeMillis();
                 try {
                     Thread.sleep(delay);
-                    long after = System.currentTimeMillis();
-                    System.out.println(message + (after - before));
+                    System.out.println(message);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     break;
