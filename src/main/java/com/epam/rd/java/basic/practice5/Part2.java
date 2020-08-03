@@ -19,7 +19,12 @@ public class Part2 {
         });
         t.start();
         System.setIn(new ByteArrayInputStream(System.lineSeparator().getBytes()));
-
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            logger.severe(INTERRUPTED_MSG);
+            Thread.currentThread().interrupt();
+        }
         System.setIn(SYS_DEFAULT_IN);
     }
 

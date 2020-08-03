@@ -27,9 +27,10 @@ public class Part1 {
 
     static void printThreadNameEvery300ms() {
         long before = System.currentTimeMillis();
+        System.out.println(Thread.currentThread().getName());
         while (true) {
             long after = System.currentTimeMillis();
-            if (after - before >= 2000) break;
+            if (after - before >= 1500) break;
             try {
                 Thread.sleep(500);
                 System.out.println(Thread.currentThread().getName());
