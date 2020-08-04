@@ -15,17 +15,22 @@ public class Spam {
         this.threads = new Thread[messages.length];
         this.messages = messages;
         this.delays = delays;
-        this.start();
+
     }
 
-    public static void main(String[] args) {
-        Spam spam = new Spam(new String[]{"aaaa", "bbbb"}, new int[]{250, 500});
-//        spam.start();
-        Scanner sc = new Scanner(System.in);
-        if (sc.hasNextLine()) {
-            spam.stop();
-            sc.close();
-        }
+    public static void main(String[] args) throws InterruptedException {
+
+        Spam spam = new Spam(new String[]{"@@@", "bbbbbbb"}, new int[]{250, 500});
+        spam.start();
+        Thread.sleep(1000);
+        spam.stop();
+
+
+//        Spam spam2 = new Spam(new String[]{"a", "b"}, new int[]{750, 1500});
+//        spam2.start();
+//        Thread.sleep(1000);
+//        spam2.stop();
+
     }
 
     public void start() {
@@ -38,14 +43,17 @@ public class Spam {
     }
 
     public void stop() {
-        Worker.running = false;
-        for (Thread t : threads) {
-            t.interrupt();
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                logger.severe(INTERRUPTED_MSG);
-                Thread.currentThread().interrupt();
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextLine()) {
+            Worker.running = false;
+            for (Thread t : threads) {
+                t.interrupt();
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    logger.severe(INTERRUPTED_MSG);
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }

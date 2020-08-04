@@ -18,7 +18,11 @@ public class Part2 {
         Thread t = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
-                Spam.main(null);
+                try {
+                    Spam.main(null);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         t.start();
