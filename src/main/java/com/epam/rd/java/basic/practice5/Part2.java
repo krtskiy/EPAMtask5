@@ -58,3 +58,4 @@ class CustomInputStream extends InputStream { //NOSONAR
         return (pos < count) ? (buf[pos++] & 0xff) : -1;
     }
 }
+
