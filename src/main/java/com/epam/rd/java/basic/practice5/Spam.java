@@ -18,18 +18,27 @@ public class Spam {
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
+        {
+            Spam spam = new Spam(new String[]{"@@@", "bbbbbbb"}, new int[]{499, 500});
+            spam.start();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            spam.stop();
 
-        Spam spam = new Spam(new String[]{"@@@", "bbbbbbb"}, new int[]{250, 500});
-        spam.start();
-        Thread.sleep(1000);
-        spam.stop();
 
-
-//        Spam spam2 = new Spam(new String[]{"a", "b"}, new int[]{750, 1500});
-//        spam2.start();
-//        Thread.sleep(1000);
-//        spam2.stop();
+//            Spam spam2 = new Spam(new String[]{"a", "b"}, new int[]{999, 1000});
+//            spam2.start();
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            spam2.stop();
+//        }
 
     }
 
