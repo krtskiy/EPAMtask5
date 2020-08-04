@@ -13,7 +13,7 @@ public class Part5 {
     private static final String ERROR_MSG = "Something went wrong!";
     private Thread[] threads = new Thread[10];
 
-    public static void main(final String[] args) throws InterruptedException {
+    public static void main(final String[] args) {
         Part5 part5 = new Part5();
         part5.writeIntoFileWith10Threads();
 
@@ -28,7 +28,7 @@ public class Part5 {
         System.out.println(sb);
     }
 
-    public void writeIntoFileWith10Threads() throws InterruptedException {
+    public void writeIntoFileWith10Threads() {
         try {
             Files.deleteIfExists(FILE_PART5.toPath());
         } catch (IOException e) {
@@ -40,7 +40,12 @@ public class Part5 {
         }
         for (Thread t : threads) {
             t.start();
-            t.join();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                logger.severe(ERROR_MSG);
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
