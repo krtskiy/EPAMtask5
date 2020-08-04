@@ -68,8 +68,8 @@ public class Spam {
         public void run() {
             while (running) {
                 try {
-                    Thread.sleep(delay);
                     System.out.println(message);
+                    Thread.sleep(delay);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     break;
