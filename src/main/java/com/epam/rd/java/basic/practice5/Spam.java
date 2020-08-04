@@ -24,8 +24,8 @@ public class Spam {
         Scanner sc = new Scanner(System.in);
         if (sc.hasNextLine()) {
             spam.stop();
+            sc.close();
         }
-//        sc.close();
     }
 
     public void start() {
