@@ -25,7 +25,7 @@ public class Spam {
         if (sc.hasNextLine()) {
             spam.stop();
         }
-        sc.close();
+//        sc.close();
     }
 
     public void start() {
