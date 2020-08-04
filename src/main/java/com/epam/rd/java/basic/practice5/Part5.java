@@ -66,8 +66,8 @@ public class Part5 {
                     raf.write(("" + counter).getBytes());
                     Thread.sleep(1);
                     if (i == 19) {
-                        raf.write(System.lineSeparator().getBytes());
-                        pos += 2;
+                        raf.write("\n".getBytes());
+                        pos++;
                     }
                 }
             } catch (IOException | InterruptedException e) {
