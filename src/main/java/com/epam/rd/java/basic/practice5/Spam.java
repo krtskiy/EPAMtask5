@@ -46,14 +46,15 @@ public class Spam {
         try {
             bf.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe(INTERRUPTED_MSG);
         }
         for (Thread t : threads) {
             t.interrupt();
             try {
                 t.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+            logger.severe(INTERRUPTED_MSG);
+            Thread.currentThread().interrupt();
             }
         }
 
