@@ -50,6 +50,11 @@ public class Spam {
         }
         for (Thread t : threads) {
             t.interrupt();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }
