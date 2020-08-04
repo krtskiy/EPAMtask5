@@ -65,7 +65,7 @@ public class Part5 {
                     raf.seek(pos++);
                     raf.write(("" + counter).getBytes());
                     Thread.sleep(1);
-                    if (i == 19) {
+                    if (i == 19 && pos < 209) {
                         raf.write("\n".getBytes());
                         pos++;
                     }
