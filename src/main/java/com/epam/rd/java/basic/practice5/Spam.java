@@ -1,6 +1,8 @@
 package com.epam.rd.java.basic.practice5;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.logging.Logger;
 
 public class Spam {
@@ -22,6 +24,12 @@ public class Spam {
         Spam spam = new Spam(new String[]{"aaaa", "bbbb"}, new int[]{250, 500});
         spam.start();
         spam.stop();
+        System.out.println("spam ended");
+
+        Spam spam2 = new Spam(new String[]{"a", "b"}, new int[]{250, 500});
+        spam2.start();
+        spam2.stop();
+        System.out.println("spam2 ended");
     }
 
     public synchronized void start() {
@@ -34,17 +42,14 @@ public class Spam {
     }
 
     public void stop() {
-        Scanner sc = new Scanner(System.in);
-        if (sc.nextLine().equals("")) {
-            for (Thread t : threads) {
-                try {
-                    t.interrupt();
-                    t.join();
-                } catch (InterruptedException e) {
-                    logger.severe(INTERRUPTED_MSG);
-                    Thread.currentThread().interrupt();
-                }
-            }
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            bf.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Thread t : threads) {
+            t.interrupt();
         }
 
     }

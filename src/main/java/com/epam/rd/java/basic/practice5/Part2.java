@@ -11,10 +11,7 @@ public class Part2 {
     private static final String INTERRUPTED_MSG = "Thread is interrupted";
 
     public static void main(final String[] args) {
-        long before = System.currentTimeMillis();
         System.setIn(new CustomInputStream(System.lineSeparator().getBytes()));
-        long after = System.currentTimeMillis();
-        System.out.println(after - before);
         Thread t = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
