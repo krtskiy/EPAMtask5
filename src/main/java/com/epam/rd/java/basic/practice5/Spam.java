@@ -19,7 +19,6 @@ public class Spam {
     }
 
     public static void main(String[] args) {
-
         Spam spam = new Spam(new String[]{"@@@", "bbbbbbb"}, new int[]{499, 500});
         spam.start();
         try {
@@ -29,18 +28,6 @@ public class Spam {
             Thread.currentThread().interrupt();
         }
         spam.stop();
-
-
-        Spam spam2 = new Spam(new String[]{"a", "b"}, new int[]{999, 1000});
-        spam2.start();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            logger.severe(INTERRUPTED_MSG);
-            Thread.currentThread().interrupt();
-        }
-        spam2.stop();
-
 
     }
 
