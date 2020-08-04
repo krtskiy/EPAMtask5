@@ -19,31 +19,32 @@ public class Spam {
     }
 
     public static void main(String[] args) {
-        {
-            Spam spam = new Spam(new String[]{"@@@", "bbbbbbb"}, new int[]{499, 500});
-            spam.start();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            spam.stop();
 
-
-//            Spam spam2 = new Spam(new String[]{"a", "b"}, new int[]{999, 1000});
-//            spam2.start();
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            spam2.stop();
-
-            
+        Spam spam = new Spam(new String[]{"@@@", "bbbbbbb"}, new int[]{499, 500});
+        spam.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            logger.severe(INTERRUPTED_MSG);
+            Thread.currentThread().interrupt();
         }
+        spam.stop();
+
+
+        Spam spam2 = new Spam(new String[]{"a", "b"}, new int[]{999, 1000});
+        spam2.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            logger.severe(INTERRUPTED_MSG);
+            Thread.currentThread().interrupt();
+        }
+        spam2.stop();
+
+
     }
 
-    public void start() {
+    public synchronized void start() {
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new Worker(messages[i], delays[i]);
         }
@@ -55,7 +56,6 @@ public class Spam {
     public void stop() {
         Scanner sc = new Scanner(System.in);
         if (sc.hasNextLine()) {
-            Worker.running = false;
             for (Thread t : threads) {
                 t.interrupt();
                 try {
@@ -72,7 +72,6 @@ public class Spam {
 
         private String message;
         private int delay;
-        private static volatile boolean running = true;
 
         Worker(String message, int delay) {
             this.message = message;
@@ -81,7 +80,7 @@ public class Spam {
 
         @Override
         public void run() {
-            while (running) {
+            while (true) {
                 try {
                     System.out.println(message);
                     Thread.sleep(delay);
