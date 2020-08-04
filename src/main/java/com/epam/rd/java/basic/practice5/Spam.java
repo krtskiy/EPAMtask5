@@ -19,16 +19,9 @@ public class Spam {
     }
 
     public static void main(String[] args) {
-        Spam spam = new Spam(new String[]{"@@@", "bbbbbbb"}, new int[]{499, 500});
+        Spam spam = new Spam(new String[]{"aaaa", "bbbb"}, new int[]{250, 500});
         spam.start();
-        try {
-            Thread.sleep(400);
-        } catch (InterruptedException e) {
-            logger.severe(INTERRUPTED_MSG);
-            Thread.currentThread().interrupt();
-        }
         spam.stop();
-
     }
 
     public synchronized void start() {
@@ -42,10 +35,10 @@ public class Spam {
 
     public void stop() {
         Scanner sc = new Scanner(System.in);
-        if (sc.hasNextLine()) {
+        if (sc.nextLine().equals("")) {
             for (Thread t : threads) {
-                t.interrupt();
                 try {
+                    t.interrupt();
                     t.join();
                 } catch (InterruptedException e) {
                     logger.severe(INTERRUPTED_MSG);
@@ -53,6 +46,7 @@ public class Spam {
                 }
             }
         }
+
     }
 
     private static class Worker extends Thread {
