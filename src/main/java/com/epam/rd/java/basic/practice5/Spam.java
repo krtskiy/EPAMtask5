@@ -22,7 +22,7 @@ public class Spam {
         Spam spam = new Spam(new String[]{"@@@", "bbbbbbb"}, new int[]{499, 500});
         spam.start();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(400);
         } catch (InterruptedException e) {
             logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
