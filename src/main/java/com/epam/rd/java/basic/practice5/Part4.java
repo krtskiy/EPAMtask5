@@ -19,7 +19,6 @@ public class Part4 {
     public static void main(final String[] args) {
         Part4HelperClass.splitMatrixIntoArray();
 
-
         long beforeWith4Threads = System.currentTimeMillis();
         System.out.println(Part4HelperClass.doWorkWith4Threads());
         long afterWith4Threads = System.currentTimeMillis();
@@ -108,33 +107,17 @@ public class Part4 {
         }
 
         private static int doWorkWith4Threads() {
-            Thread t = new Thread(new Runnable() { //NOSONAR
-                @Override
-                public void run() {
-                    max[0] = findMaxInArray(inputArrInt[0]);
-                }
-            });
+            Runnable r = () -> max[0] = findMaxInArray(inputArrInt[0]);
+            Thread t = new Thread(r);
 
-            Thread t1 = new Thread(new Runnable() { //NOSONAR
-                @Override
-                public void run() {
-                    max[1] = findMaxInArray(inputArrInt[1]);
-                }
-            });
+            Runnable r1 = () -> max[0] = findMaxInArray(inputArrInt[0]);
+            Thread t1 = new Thread(r1);
 
-            Thread t2 = new Thread(new Runnable() { //NOSONAR
-                @Override
-                public void run() {
-                    max[2] = findMaxInArray(inputArrInt[2]);
-                }
-            });
+            Runnable r2 = () -> max[0] = findMaxInArray(inputArrInt[0]);
+            Thread t2 = new Thread(r2);
 
-            Thread t3 = new Thread(new Runnable() { //NOSONAR
-                @Override
-                public void run() {
-                    max[3] = findMaxInArray(inputArrInt[3]);
-                }
-            });
+            Runnable r3 = () -> max[0] = findMaxInArray(inputArrInt[0]);
+            Thread t3 = new Thread(r3);
 
             t.start();
             t1.start();
