@@ -13,15 +13,15 @@ public class Demo {
 
     public static void main(String[] args) {
         System.out.println("~~~~~~~~~~ PART1 ~~~~~~~~~~");
-        Part1.main(args);
+        Part1.main(null);
         System.out.println("~~~~~~~~~~ PART2 ~~~~~~~~~~");
-        Part2.main(args);
+        Part2.main(null);
         System.out.println("~~~~~~~~~~ PART3 ~~~~~~~~~~");
-        Part3.main(args);
+        Part3.main(null);
         System.out.println("~~~~~~~~~~ PART4 ~~~~~~~~~~");
-        Part4.main(args);
+        Part4.main(null);
         System.out.println("~~~~~~~~~~ PART5 ~~~~~~~~~~");
-        Part5.main(args);
+        Part5.main(null);
     }
 
     public static String readFile(String path) {

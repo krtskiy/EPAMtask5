@@ -38,7 +38,7 @@ public class Spam {
     public void stop() {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         try {
-            bf.readLine();
+            bf.readLine(); //NOSONAR
         } catch (IOException e) {
             logger.severe(INTERRUPTED_MSG);
         }
