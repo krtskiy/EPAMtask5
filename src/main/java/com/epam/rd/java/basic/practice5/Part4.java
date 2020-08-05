@@ -110,13 +110,13 @@ public class Part4 {
             Runnable r = () -> max[0] = findMaxInArray(inputArrInt[0]);
             Thread t = new Thread(r);
 
-            Runnable r1 = () -> max[0] = findMaxInArray(inputArrInt[0]);
+            Runnable r1 = () -> max[1] = findMaxInArray(inputArrInt[1]);
             Thread t1 = new Thread(r1);
 
-            Runnable r2 = () -> max[0] = findMaxInArray(inputArrInt[0]);
+            Runnable r2 = () -> max[2] = findMaxInArray(inputArrInt[2]);
             Thread t2 = new Thread(r2);
 
-            Runnable r3 = () -> max[0] = findMaxInArray(inputArrInt[0]);
+            Runnable r3 = () -> max[3] = findMaxInArray(inputArrInt[3]);
             Thread t3 = new Thread(r3);
 
             t.start();
