@@ -58,16 +58,20 @@ public class Part5 {
             this.counter = counter;
         }
 
+        private static long increasePos() {
+            return pos++;
+        }
+
         @Override
         public void run() {
             try (RandomAccessFile raf = new RandomAccessFile(FILE_PART5, "rw")) {
                 for (int i = 0; i < 20; i++) {
-                    raf.seek(pos++);
+                    raf.seek(increasePos());
                     raf.write(("" + counter).getBytes());
                     Thread.sleep(1);
                     if (i == 19 && pos < 209) {
                         raf.write("\n".getBytes());
-                        pos++;
+                        increasePos();
                     }
                 }
             } catch (IOException | InterruptedException e) {

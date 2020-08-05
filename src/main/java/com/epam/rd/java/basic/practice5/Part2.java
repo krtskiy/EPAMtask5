@@ -12,12 +12,8 @@ public class Part2 {
 
     public static void main(final String[] args) {
         System.setIn(new CustomInputStream(System.lineSeparator().getBytes()));
-        Thread t = new Thread(new Runnable() { //NOSONAR
-            @Override
-            public void run() {
-                Spam.main(null);
-            }
-        });
+        Runnable run = () -> Spam.main(null);
+        Thread t = new Thread(run);
         t.start();
         try {
             t.join();

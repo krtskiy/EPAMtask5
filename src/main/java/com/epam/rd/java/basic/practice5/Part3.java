@@ -4,8 +4,8 @@ import java.util.logging.Logger;
 
 public class Part3 {
 
-    private int numberOfThreads;
-    private int numberOfIterations;
+    private int numberOfThreads; //NOSONAR
+    private int numberOfIterations; //NOSONAR
     private int counter;
     private int counter2;
     private static Logger logger = Logger.getLogger(Part3.class.getName());
@@ -17,67 +17,37 @@ public class Part3 {
     }
 
     public static void main(final String[] args) {
-        Part3 comp = new Part3(1,1);
+        Part3 comp = new Part3(1, 1);
         comp.compare();
-        Part3 comp2 = new Part3(4,1);
+        Part3 comp2 = new Part3(4, 1);
         comp2.compareSync();
-
     }
 
-    private synchronized void incrementCounter() {
-        this.counter++;
+    private void compNotSync() {
+        for (int i = 0; i < 5; i++) { //NOSONAR
+            System.out.println(counter == counter2);
+            counter++;
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                logger.severe(INTERRUPTED_MSG);
+                Thread.currentThread().interrupt();
+            }
+            counter2++;
+        }
     }
-
-    private synchronized void incrementCounter2() {
-        this.counter2++;
-    }
-
 
     public void compare() {
-        Thread compareThread1 = new Thread(new Runnable() { //NOSONAR
-            @Override
-            public void run() {
-                for (int i = 0; i < 5; i++) {
-                    System.out.println(counter == counter2);
-                    counter++;
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        logger.severe(INTERRUPTED_MSG);
-                        Thread.currentThread().interrupt();
-                    }
-                    counter2++;
-                }
-            }
-        });
+        Runnable run1 = this::compNotSync;
+        Thread compareThread1 = new Thread(run1);
+        Runnable run2 = this::compNotSync;
 
-        Thread compareThread2 = new Thread(new Runnable() { //NOSONAR
-            @Override
-            public void run() {
-                for (int i = 0; i < 5; i++) {
-                    System.out.println(counter == counter2);
-                    counter++;
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        logger.severe(INTERRUPTED_MSG);
-                        Thread.currentThread().interrupt();
-                    }
-                    counter2++;
-                }
-            }
-        });
+        Thread compareThread2 = new Thread(run2);
 
         compareThread1.start();
         compareThread2.start();
         try {
             compareThread1.join();
-        } catch (InterruptedException e) {
-            logger.severe(INTERRUPTED_MSG);
-            Thread.currentThread().interrupt();
-
-        }
-        try {
             compareThread2.join();
         } catch (InterruptedException e) {
             logger.severe(INTERRUPTED_MSG);
@@ -87,17 +57,17 @@ public class Part3 {
 
     }
 
-    private synchronized void comp() {
-        for (int i = 0; i < 5; i++) {
+    private synchronized void compSync() {
+        for (int i = 0; i < 5; i++) { //NOSONAR
             System.out.println(counter == counter2);
-            incrementCounter();
+            counter++;
             try {
-                Thread.sleep(100);
+                Thread.sleep(100); //NOSONAR
             } catch (InterruptedException e) {
                 logger.severe(INTERRUPTED_MSG);
                 Thread.currentThread().interrupt();
             }
-            incrementCounter2();
+            counter2++;
         }
     }
 
@@ -105,14 +75,14 @@ public class Part3 {
         Thread compareThread1 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
-                comp();
+                compSync();
             }
         });
 
         Thread compareThread2 = new Thread(new Runnable() { //NOSONAR
             @Override
             public void run() {
-                comp();
+                compSync();
             }
         });
 
@@ -120,20 +90,12 @@ public class Part3 {
         compareThread2.start();
         try {
             compareThread1.join();
-        } catch (InterruptedException e) {
-            logger.severe(INTERRUPTED_MSG);
-            Thread.currentThread().interrupt();
-
-        }
-        try {
             compareThread2.join();
         } catch (InterruptedException e) {
             logger.severe(INTERRUPTED_MSG);
             Thread.currentThread().interrupt();
 
         }
-
-
     }
 
 

@@ -24,12 +24,6 @@ public class Spam {
         Spam spam = new Spam(new String[]{"aaaa", "bbbb"}, new int[]{250, 500});
         spam.start();
         spam.stop();
-        System.out.println("spam ended");
-
-        Spam spam2 = new Spam(new String[]{"a", "b"}, new int[]{250, 500});
-        spam2.start();
-        spam2.stop();
-        System.out.println("spam2 ended");
     }
 
     public synchronized void start() {
