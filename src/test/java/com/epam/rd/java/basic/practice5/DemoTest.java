@@ -1,5 +1,5 @@
 package com.epam.rd.java.basic.practice5;
 
-public class DemoTest {
+public class DemoTest { //NOSONAR
 
 }
